@@ -35,6 +35,11 @@ public class ReservationService {
     }
 
     // TODO: 1. 트랜잭션 이해
+    /*
+    * @Transactional 선언으로 메서드 내 모든 작업이 하나의 트랜잭션으로 묶임.
+    * 에러 발생 시 트랜잭션 롤백, 정상 수행 시 트랜잭션 커밋.
+    */
+    @Transactional // All or Nothing 동작을 보장하기위해 @Transactional 어노테이션 사용
     public void createReservation(Long itemId, Long userId, LocalDateTime startAt, LocalDateTime endAt) {
         // 쉽게 데이터를 생성하려면 아래 유효성검사 주석 처리
         List<Reservation> haveReservations = reservationRepository.findConflictingReservations(itemId, startAt, endAt);
