@@ -36,14 +36,14 @@ public class ReservationService {
 
     // TODO: 1. 트랜잭션 이해
     /*
-    * @Transactional 선언으로 메서드 내 모든 작업이 하나의 트랜잭션으로 묶임.
-    * 에러 발생 시 트랜잭션 롤백, 정상 수행 시 트랜잭션 커밋.
-    */
+     * @Transactional 선언으로 메서드 내 모든 작업이 하나의 트랜잭션으로 묶임.
+     * 에러 발생 시 트랜잭션 롤백, 정상 수행 시 트랜잭션 커밋.
+     */
     @Transactional // All or Nothing 동작을 보장하기위해 @Transactional 어노테이션 사용
     public void createReservation(Long itemId, Long userId, LocalDateTime startAt, LocalDateTime endAt) {
         // 쉽게 데이터를 생성하려면 아래 유효성검사 주석 처리
         List<Reservation> haveReservations = reservationRepository.findConflictingReservations(itemId, startAt, endAt);
-        if(!haveReservations.isEmpty()) {
+        if (!haveReservations.isEmpty()) {
             throw new ReservationConflictException("해당 물건은 이미 그 시간에 예약이 있습니다.");
         }
 
@@ -58,20 +58,17 @@ public class ReservationService {
 
     // TODO: 3. N+1 문제
     public List<ReservationResponseDto> getReservations() {
-        List<Reservation> reservations = reservationRepository.findAll();
+        // Fetch Join 을 사용해 reservation, user, item 데이터 한 번에 가져오기
+        List<Reservation> reservations = reservationRepository.findAllWithUserAndItem();
 
-        return reservations.stream().map(reservation -> {
-            User user = reservation.getUser();
-            Item item = reservation.getItem();
-
-            return new ReservationResponseDto(
-                    reservation.getId(),
-                    user.getNickname(),
-                    item.getName(),
-                    reservation.getStartAt(),
-                    reservation.getEndAt()
-            );
-        }).toList();
+        return reservations.stream()
+                .map(reservation -> new ReservationResponseDto(
+                reservation.getId(),
+                reservation.getUser().getNickname(),
+                reservation.getItem().getName(),
+                reservation.getStartAt(),
+                reservation.getEndAt()
+        )).toList();
     }
 
     // TODO: 5. QueryDSL 검색 개선
