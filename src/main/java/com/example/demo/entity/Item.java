@@ -2,10 +2,12 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import org.hibernate.annotations.DynamicInsert;
 
 
 @Entity
 @Getter
+@DynamicInsert // null 값인 컬럼 제외하고 동적으로 쿼리 생성
 // TODO: 6. Dynamic Insert
 public class Item {
     @Id
