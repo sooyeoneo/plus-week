@@ -12,7 +12,7 @@
 ### Lv 1. Transactional에 대한 이해
 
 - 설명
-    - `createReservation` 함수 40~43번째 유효성 검사 로직이 있습니다. 데이터를 쉽게 생성하려면 해당 유효성 검사 코드를 주석처리 한다.
+    - `createReservation` 함수 40~43번째 유효성 검사 로직이 있다. 데이터를 쉽게 생성하려면 해당 유효성 검사 코드를 주석처리 한다.
 - 현재 조건
     - `createReservation` 함수는 Reservation, RentalLog 총 2번 저장을 수행한다.
     - `rentalLogService.save` 함수는 무조건 `RuntimeException`이 발생한다.
