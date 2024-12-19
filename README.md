@@ -20,9 +20,9 @@
     - 그럼에도 Reservation 저장은 이루어진다.
 - 개선
     - `createReservation` 함수 내에서 
-        - @Transactional 선언으로 메서드 내 모든 작업이 하나의 트랜잭션으로 묶인다.
+        - `@Transactional` 선언으로 메서드 내 모든 작업이 하나의 트랜잭션으로 묶인다.
         - 에러 발생 시 트랜잭션 롤백, 정상 수행 시 트랜잭션 커밋.
-        - All or Nothing 동작을 보장하기위해 @Transactional 어노테이션 사용
+        - All or Nothing 동작을 보장하기위해 `@Transactional` 어노테이션 사용
 
 
 ### Lv 2. 인가에 대한 이해
@@ -75,8 +75,11 @@
     - 데이터 존재 여부에 따라 다른 JPA가 각각 호출되고 있다.
 - 개선
     - `QueryDSL`을 활용하여 동적 쿼리를 적용한다.
+         - `QueryDSL` 추가
+         - `ReservationRepositoryCustom` 추가
+         - `ReservationRepositoryCustomImple` 추가
     - N+1 문제가 발생하지 않도록 한다.
-
+  
 
 ### Lv 6. 필요한 부분만 갱신하기
 
@@ -87,6 +90,8 @@
         - `Column 'status' cannot be null` 에러가 발생한다.
 - 개선
     - `DynamicInsert` 활용하여 데이터를 보내지 않은 경우 기본값이 입력되도록 수정한다.
+    - `@DynamicInsert` 추가
+         - null 값인 컬럼 제외하고 동적으로 쿼리 생성
 
 
 ### Lv 7. 리팩토링
