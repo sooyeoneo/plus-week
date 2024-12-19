@@ -5,7 +5,6 @@ import lombok.Getter;
 
 @Getter
 public class Authentication {
-
     private final Long id;
     private final Role role;
 
