@@ -107,6 +107,14 @@
     3. 재사용 비중이 높은 `findById` 함수들을 `default` 메소드로 선언한다.
     4. 상태 값을 명확하게 `enum`으로 관리한다.
     5. 첫번째 Transactional 문제를 해결했다면 `RentalLogService` save 함수 내 19~21번째 코드를 삭제하거나 주석처리하여 기능이 동작하도록 수정한다.
+
+- 리팩토링
+  - `ReservationStatus`, `ItemResponseDto` 추가
+  - `Item`, `RentalLog`, `Reservation`, `User` Entity에 각각의 Status Enum 추가
+  - `Controller` 단, `Service` 단 반환 타입 수정
+  - `Repository` 단에 `default` 메소드 추가
+  - `ReservationService`에 `updateReservationStatus()` 에 switch 문 추가
+    
  
 
 ### Lv 8. 테스트 코드 
