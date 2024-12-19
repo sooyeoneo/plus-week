@@ -41,6 +41,8 @@ dependencies {
     // lombok
     annotationProcessor 'org.projectlombok:lombok'
     compileOnly 'org.projectlombok:lombok'
+    // test Database
+    testImplementation 'com.h2database:h2'
 }
 
 tasks.named('test') {
