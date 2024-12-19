@@ -19,7 +19,7 @@
     - `rentalLogService.save` 함수는 무조건 `RuntimeException`이 발생한다.
     - 그럼에도 Reservation 저장은 이루어진다.
 - 개선
-    - `createReservation` 함수 내에서
+    - `createReservation` 함수 내에서 
         - @Transactional 선언으로 메서드 내 모든 작업이 하나의 트랜잭션으로 묶인다.
         - 에러 발생 시 트랜잭션 롤백, 정상 수행 시 트랜잭션 커밋.
         - All or Nothing 동작을 보장하기위해 @Transactional 어노테이션 사용
@@ -50,6 +50,7 @@
     - 모든 예약을 조회할 때 연관된 테이블에 있는 정보를 가져오면서 N+1 문제가 발생한다.
 - 개선
     - 동일한 데이터를 가져올 때 N+1 문제가 발생하지 않게 수정한다.
+         - Fetch Join 을 사용해 reservation, user, item 데이터 한 번에 가져오기
 
 
 ### Lv 4. DB 접근 최소화
@@ -61,6 +62,8 @@
     - 데이터가 작을 때는 문제가 되지 않지만 데이터가 많아지면 DB 접근도 함께 증가한다.
 - 개선
     - DB 접근을 최소화하는 방향으로 수정한다.
+         - 쿼리 한 번으로 모든 사용자 조회
+         - saveAll 을 호출하지 않아도 @Transactional 에 의해 변경사항 반영
 
     
 ### Lv 5. 동적 쿼리에 대한 이해
