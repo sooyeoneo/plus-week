@@ -104,7 +104,7 @@
 - 개선
     1. 필요하지 않은 `else` 구문을 걷어낸다.
     2. 컨트롤러 응답 데이터 타입을 적절하게 변경한다.
-    3. 재사용 비중이 높은 `findById` 함수들을 `default` 메소드로 선언한다.
+    3. 재사용 비중이 높은 `findById` 함수들을 `default` 메서드로 선언한다.
     4. 상태 값을 명확하게 `enum`으로 관리한다.
     5. 첫번째 Transactional 문제를 해결했다면 `RentalLogService` save 함수 내 19~21번째 코드를 삭제하거나 주석처리하여 기능이 동작하도록 수정한다.
 
@@ -112,7 +112,7 @@
   - `ReservationStatus`, `ItemResponseDto` 추가
   - `Item`, `RentalLog`, `Reservation`, `User` Entity에 각각의 Status Enum 추가
   - `Controller` 단, `Service` 단 반환 타입 수정
-  - `Repository` 단에 `default` 메소드 추가
+  - `Repository` 단에 `default` 메서드 추가
   - `ReservationService`에 `updateReservationStatus()` 에 switch 문 추가
     
  
@@ -121,9 +121,16 @@
 
 - [X]  **PasswordEncoder 단위 테스트**
     - `@Test` 를 사용해서 PasswordEncoder에 존재하는 메서드들에 대해서 “**단위 테스트”** 를 추가한다.
+         - `encode`와 `matches` 메서드의 단위 테스트 추가
+         - testEncode: 비밀번호를 암호화하고, 원본 비밀번호와 암호화된 비밀번호가 다름을 확인
+         - testMatches: encode로 암호화된 비밀번호와 matches 메서드를 이용해 비밀번호가 일치하는지 확인.
+              - 일치하면 true, 일치하지 않으면 false가 반환되도록 테스트
+           
 - [X]  **Item Entity Test 추가하기**
     - `@Test` 를 사용해서 Item Entity에 대한 “**단위 테스트”** 를 추가한다.
     - Item Entity에서 status 값이 `nullable = false` 이므로 해당 제약 조건이 동작하는지 테스트 한다.
+    - testItemStatusNotNull: Item 엔티티가 저장될 때 status 필드가 null이 아니고, 기본값으로 PENDING 상태로 저장되는지 테스트
+    - testItemStatusNotNullable: status 필드가 nullable = false로 설정되어 있기 때문에, null 값을 넣었을 때 예외가 발생하는지 확인하는 테스트
      
 
 ------------
