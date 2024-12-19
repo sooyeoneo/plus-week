@@ -135,4 +135,4 @@
 
 ------------
 ## 트러블 슈팅 🎯
-[TIL](https://sooyeoneo.tistory.com/)
+[플로스 주차 개인 과제 트러블 슈팅](https://sooyeoneo.tistory.com/99)
