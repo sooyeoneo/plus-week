@@ -12,16 +12,17 @@
 ### Lv 1. Transactional에 대한 이해
 
 - 설명
-    - `createReservation` 함수 40~43번째 유효성 검사 로직이 있다. 데이터를 쉽게 생성하려면 해당 유효성 검사 코드를 주석처리 한다.
+    - `createReservation` 함수 40~43번째 유효성 검사 로직이 있다.
+    - 데이터를 쉽게 생성하려면 해당 유효성 검사 코드를 주석처리 한다.
 - 현재 조건
     - `createReservation` 함수는 Reservation, RentalLog 총 2번 저장을 수행한다.
     - `rentalLogService.save` 함수는 무조건 `RuntimeException`이 발생한다.
     - 그럼에도 Reservation 저장은 이루어진다.
 - 개선
     - `createReservation` 함수 내에서
-        - 하나라도 에러가 발생하면 모두 저장되지 않도록 수정합니다.
-        - 하나라도 에러가 발생하지 않으면 모두 저장되도록 수정합니다.
-        - All or Nothing
+        - @Transactional 선언으로 메서드 내 모든 작업이 하나의 트랜잭션으로 묶인다.
+        - 에러 발생 시 트랜잭션 롤백, 정상 수행 시 트랜잭션 커밋.
+        - All or Nothing 동작을 보장하기위해 @Transactional 어노테이션 사용
 
 
 ### Lv 2. 인가에 대한 이해
@@ -34,6 +35,11 @@
     - `/admins` 시작하는 URL을 로그인 한 사용자는 모두가 요청할 수 있다.
 - 개선
     - `/admins` 들어오는 요청은 ADMIN 권한을 만들어서 해당 권한이 아니면 요청할 수 없게 만든다.
+         - `AdminRoleInterCeptor` 추가
+         - Interceptor 는 order 값을 기준으로 실행 순서 결정
+         - Ordered.HIGHEST_PRECEDENCE 는 가장 높은 우선순위(값이 낮음)를 의미 (0)
+         - 값이 낮을수록 먼저 실행, 높을수록 나중에 실행 (+1 순서를 1만큼 미룸)
+         - 실행 순서 - authInterceptor > adminRoleInterceptor > userRoleInterceptor
 
 
 ### Lv 3. N+1에 대한 이해
