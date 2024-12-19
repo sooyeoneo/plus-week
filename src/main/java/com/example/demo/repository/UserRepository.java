@@ -17,4 +17,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying
     @Query("UPDATE User u SET u.status = 'BLOCKED' WHERE u.id IN :userIds")
     void updateStatusToBlockedForUsers(@Param("userIds")List<Long> userIds);
+
+    default User findUserById(Long id) {
+        return findById(id).orElseThrow(() -> new IllegalArgumentException("Id에 맞는 값이 존재하지 않습니다."));
+    }
 }

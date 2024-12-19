@@ -34,4 +34,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long>,
             "JOIN FETCH r.user u " +
             "JOIN FETCH r.item i")
     List<Reservation> findAllWithUserAndItem();
+
+    default Reservation findReservationById(Long reservationId) {
+        return findById(reservationId).orElseThrow(() -> new IllegalArgumentException("Id에 맞는 데이터가 존재하지 않습니다."));
+    }
 }

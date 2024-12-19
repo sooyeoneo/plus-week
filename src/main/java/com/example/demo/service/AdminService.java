@@ -31,7 +31,6 @@ public class AdminService {
         userRepository.updateStatusToBlockedForUsers(userIds);
 
         // saveAll 을 호출하지 않아도 @Transactional 에 의해 변경사항 반영
-
         // 기존 문제: findById() 사용자 데이터 매번 조회, save() 매번 사용자 데이터 저장 -> 데이터 양이 많아질 수록 쿼리수가 (조회+저장)2*N
     }
 }
