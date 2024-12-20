@@ -135,4 +135,4 @@
 
 ------------
 ## 트러블 슈팅 🎯
-[플러스 주차 개인 과제 트러블 슈팅](https://sooyeoneo.tistory.com/99)
+[N+1 문제 해결 방법_플러스 주차 개인 과제 트러블 슈팅](https://sooyeoneo.tistory.com/99)
